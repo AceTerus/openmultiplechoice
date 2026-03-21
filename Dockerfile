@@ -18,11 +18,13 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interactio
 # Copy rest of app
 COPY . .
 
+# Init dummy git repo so Laravel packages don't fail git checks
+RUN git init && git config user.email "deploy@render.com" && git config user.name "Render"
+
 # Storage permissions
 RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views \
     && chmod -R 775 storage bootstrap/cache
 
-# Build assets if needed
 RUN php artisan config:clear || true
 
 EXPOSE 8000
