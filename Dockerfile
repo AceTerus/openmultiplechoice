@@ -19,7 +19,8 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interactio
 COPY . .
 
 # Init dummy git repo so Laravel packages don't fail git checks
-RUN git init && git config user.email "deploy@render.com" && git config user.name "Render"
+RUN git init && git config user.email "deploy@render.com" && git config user.name "Render" \
+    && git add -A && git commit -m "deploy"
 
 # Storage permissions
 RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views \
