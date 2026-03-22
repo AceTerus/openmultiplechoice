@@ -30,4 +30,7 @@ RUN php artisan config:clear || true
 
 EXPOSE 8000
 
-CMD php artisan migrate --force && php artisan tinker --execute="if(DB::table('decks')->count()==0){Artisan::call('db:seed',['--class'=>'DemoSeeder','--force'=>true]);}" && php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan migrate --force \
+    && php artisan tinker --execute="if(DB::table('decks')->count()==0){Artisan::call('db:seed',['--class'=>'DemoSeeder','--force'=>true]);}" \
+    && php artisan tinker --execute="if(DB::table('users')->where('is_admin',true)->count()==0 && env('ADMIN_EMAIL') && env('ADMIN_PASSWORD')){\App\Models\User::create(['name'=>'admin','email'=>env('ADMIN_EMAIL'),'password'=>bcrypt(env('ADMIN_PASSWORD')),'is_admin'=>true,'is_enabled'=>true,'email_verified_at'=>now()]);}" \
+    && php artisan serve --host=0.0.0.0 --port=8000
