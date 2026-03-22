@@ -39,4 +39,14 @@ return [
         'realms' => env('KEYCLOAK_REALM'),
     ],
 
+    'supabase' => [
+        'url' => env('SUPABASE_URL'),
+        'anon_key' => env('SUPABASE_ANON_KEY'),
+        'jwt_secret' => env('SUPABASE_JWT_SECRET'),
+        'jwks_url' => env('SUPABASE_JWKS_URL', env('SUPABASE_URL') ? rtrim(env('SUPABASE_URL'), '/') . '/auth/v1/jwks' : null),
+        'jwt_audience' => env('SUPABASE_JWT_AUDIENCE', 'authenticated'),
+        'jwt_issuer' => env('SUPABASE_JWT_ISS', env('SUPABASE_URL') ? rtrim(env('SUPABASE_URL'), '/') . '/auth/v1' : null),
+        'cache_ttl' => env('SUPABASE_BRIDGE_CACHE_TTL', 600),
+    ],
+
 ];

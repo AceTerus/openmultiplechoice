@@ -289,6 +289,17 @@ Route::post('/reset-password', function (Request $request) {
         : back()->withErrors(['email' => __($status)]);
 })->middleware('guest')->name('password.update');
 
+ // Public route to serve uploaded question images (no auth required)
+ // Images belong to public decks and are already accessible via the API
+ Route::get('/images/{filename}', function (string $filename) {
+     $path = 'images/' . $filename;
+     if (!Storage::exists($path)) {
+         abort(404);
+     }
+     return response()->file(Storage::path($path));
+ });
+
+
 // A fallback route for all requests that are not handled by the routes
 // above and are not found in the `public/` directory.
 Route::fallback(function (Request $request) {

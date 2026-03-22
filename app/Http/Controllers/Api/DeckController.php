@@ -85,7 +85,7 @@ class DeckController extends Controller
 
         // Return all public decks
         return response()->json(
-            Deck::where('access', '=', 'public-rw-listed')
+            Deck::whereIn('access', ['public-rw-listed', 'public-rw'])
                 ->with('module', 'module.subject', 'questions:id')->get()
         );
     }

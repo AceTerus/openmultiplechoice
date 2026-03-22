@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\SubjectController;
@@ -35,6 +34,7 @@ use App\Http\Controllers\Api\UserSettingsController;
 use App\Http\Controllers\Api\StatsController;
 
 use App\Http\Controllers\Api\MagicGifController;
+use App\Http\Controllers\Auth\SupabaseTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +46,9 @@ use App\Http\Controllers\Api\MagicGifController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('supabase/exchange-token', [SupabaseTokenController::class, 'exchange'])
+    ->middleware(['api', 'throttle:api']);
 
 Route::group(['middleware' => ['api', 'auth:sanctum']], function () {
     Route::get('subjects/byname', [SubjectController::class, 'showByName']);

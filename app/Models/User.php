@@ -46,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'name',
         'public_name',
         'email',
+        'supabase_id',
         'is_admin',
         'is_moderator',
         'is_enabled',

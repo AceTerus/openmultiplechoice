@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "firebase/php-jwt": "^6.11",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^12.0",
         "laravel/octane": "^2.3",
