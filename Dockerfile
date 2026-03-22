@@ -30,4 +30,4 @@ RUN php artisan config:clear || true
 
 EXPOSE 8000
 
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan migrate --force && php artisan tinker --execute="if(DB::table('decks')->count()==0){Artisan::call('db:seed',['--class'=>'DemoSeeder','--force'=>true]);}" && php artisan serve --host=0.0.0.0 --port=8000
